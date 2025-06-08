@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelas X.1 - Website Resmi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --pastel-blue: #a2d2ff;
+            --pastel-pink: #ffafcc;
+            --pastel-green: #bde0fe;
+            --pastel-purple: #cdb4db;
+            --pastel-yellow: #ffd6ff;
+            --text-dark: #2d3436;
+            --text-light: #f7f9fa;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-purple));
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 20px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .active {
+            display: block;
+        }
+
+        /* Cover Page */
+        #cover-page {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                         url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .cover-content {
+            max-width: 800px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cover-title {
+            font-size: 5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4, #fad0c4, #a1c4fd);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 30px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .enter-btn {
+            background: linear-gradient(45deg, var(--pastel-pink), var(--pastel-purple));
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding: 15px 50px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
+            margin-top: 20px;
+        }
+
+        .enter-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, var(--pastel-purple), var(--pastel-pink));
+        }
+
+        /* Home Page */
+        #home-page {
+            background: linear-gradient(135deg, var(--pastel-green), var(--pastel-blue));
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px 30px;
+            width: 350px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--pastel-purple), var(--pastel-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .feature-title {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .feature-desc {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Memories Page */
+        #memories-page {
+            background: linear-gradient(135deg, var(--pastel-yellow), var(--pastel-pink));
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            height: 250px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, var(--pastel-blue), var(--pastel-green));
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 20px auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Population Page */
+        #population-page {
+            background: linear-gradient(135deg, var(--pastel-purple), var(--pastel-blue));
+        }
+
+        .students-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .student-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .student-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .student-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .student-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            border-bottom: 3px solid var(--pastel-pink);
+        }
+
+        .student-info {
+            padding: 20px;
+        }
+
+        .student-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .student-role {
+            font-size: 1rem;
+            color: #636e72;
+            margin-bottom: 15px;
+        }
+
+        .student-desc {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-dark);
+        }
+
+        .nav-btn:hover, .nav-btn.active-nav {
+            background: linear-gradient(45deg, var(--pastel-pink), var(--pastel-purple));
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .cover-title {
+                font-size: 3.5rem;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .feature-card {
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            .nav-container {
+                width: 90%;
+                justify-content: center;
+            }
+            
+            .nav-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cover-title {
+                font-size: 2.8rem;
+            }
+            
+            .enter-btn {
+                padding: 12px 40px;
+                font-size: 1.2rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header p {
+                font-size: 1.1rem;
+            }
+            
+            .feature-card {
+                padding: 30px 20px;
+            }
+            
+            .nav-container {
+                flex-wrap: wrap;
+                width: 95%;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover Page -->
+    <section id="cover-page" class="page active">
+        <div class="cover-content">
+            <h1 class="cover-title">KELAS X.1</h1>
+            <button class="enter-btn" onclick="showPage('home-page')">
+                MASUK <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Home Page -->
+    <section id="home-page" class="page">
+        <div class="header">
+            <h1>Selamat Datang di Kelas X.1</h1>
+            <p>Tempat berkumpulnya para siswa berprestasi dengan semangat belajar yang tinggi dan penuh ambisi</p>
+        </div>
+        
+        <div class="features">
+            <div class="feature-card" onclick="showPage('memories-page')">
+                <div class="feature-icon">
+                    <i class="fas fa-images"></i>
+                </div>
+                <h2 class="feature-title">Memories</h2>
+                <p class="feature-desc">Kumpulan momen berharga dan kenangan indah selama perjalanan kita di Kelas X.1</p>
+            </div>
+            
+            <div class="feature-card" onclick="showPage('population-page')">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h2 class="feature-title">Populasi</h2>
+                <p class="feature-desc">Kenali lebih dekat semua anggota keluarga besar Kelas X.1 yang penuh talenta</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memories Page -->
+    <section id="memories-page" class="page">
+        <div class="header">
+            <h1>Memories Kelas X.1</h1>
+            <p>Kumpulan momen tak terlupakan bersama keluarga besar Kelas X.1</p>
+        </div>
+        
+        <div class="gallery-container">
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Kegiatan Kelas">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Study Tour">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Presentasi Kelompok">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Lomba Olahraga">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Kegiatan Sosial">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Belajar Bersama">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Eksperimen Sains">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Pentas Seni">
+                </div>
+            </div>
+            
+            <button class="back-btn" onclick="showPage('home-page')">
+                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+            </button>
+        </div>
+    </section>
+
+    <!-- Population Page -->
+    <section id="population-page" class="page">
+        <div class="header">
+            <h1>Populasi Kelas X.1</h1>
+            <p>Anggota keluarga besar kelas ambisius dan penuh prestasi</p>
+        </div>
+        
+        <div class="students-container">
+            <div class="student-grid">
+                <div class="student-card">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Andi" class="student-img">
+                    <div class="student-info">
+                        <h3 class="student-name">Andi Wijaya</h3>
+                        <p class="student-role">Ketua Kelas</p>
+                        <p class="student-desc">Suka matematika dan programming. Ingin menjadi data scientist.</p>
+                    </div>
+                </div>
+                
+                <div class="student-card">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Budi" class="student-img">
+                    <div class="student-info">
+                        <h3 class="student-name">Budi Santoso</h3>
+                        <p class="student-role">Wakil Ketua</p>
+                        <p class="student-desc">Ahli dalam fisika dan robotik. Juara olimpiade sains tingkat kota.</p>
+                    </div>
+                </div>
+                
+                <div class="student-card">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80" alt="Citra" class="student-img">
+                    <div class="student-info">
+                        <h3 class="student-name">Citra Dewi</h3>
+                        <p class="student-role">Bendahara</p>
+                        <p class="student-desc">Suka menulis dan menggambar. Juara lomba menulis cerpen tingkat provinsi.</p>
+                    </div>
+                </div>
+                
+                <div class="student-card">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Dedi" class="student-img">
+                    <div class="student-info">
+                        <h3 class="student-name">Dedi Pratama</h3>
+                        <p class="student-role">Sekretaris</p>
+                        <p class="student-desc">Ahli bahasa dan sejarah. Juara debat bahasa Inggris tingkat nasional.</p>
+                    </div>
+                </div>
+                
+                <div class="student-card">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Eva" class="student-img">
+                    <div class="student-info">
+                        <h3 class="student-name">Eva Fitriani</h3>
+                        <p class="student-role">Koordinator Acara</p>
+                        <p class="student-desc">Suka organisasi dan event planning. Aktif di OSIS dan ekstrakulikuler teater.</p>
+                    </div>
+                </div>
+                
+                <div class="student-card">
+                    <img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Fajar" class="student-img">
+                    <div class="student-info">
+                        <h3 class="student-name">Fajar Setiawan</h3>
+                        <p class="student-role">Koordinator Olahraga</p>
+                        <p class="student-desc">Atlet basket sekolah. Juara lomba lari 100m tingkat kabupaten.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="back-btn" onclick="showPage('home-page')">
+                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+            </button>
+        </div>
+    </section>
+
+    <!-- Navigation -->
+    <div class="nav-container">
+        <button class="nav-btn" onclick="showPage('cover-page')">Cover</button>
+        <button class="nav-btn" onclick="showPage('home-page')">Beranda</button>
+        <button class="nav-btn" onclick="showPage('memories-page')">Memories</button>
+        <button class="nav-btn" onclick="showPage('population-page')">Populasi</button>
+    </div>
+
+    <script>
+        // Function to show selected page and hide others
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active-nav');
+            });
+            
+            // Set active state for the corresponding nav button
+            const activeBtn = Array.from(document.querySelectorAll('.nav-btn')).find(btn => {
+                return btn.textContent.toLowerCase() === pageId.replace('-page', '').toLowerCase() ||
+                       (pageId === 'cover-page' && btn.textContent.toLowerCase() === 'cover');
+            });
+            
+            if (activeBtn) {
+                activeBtn.classList.add('active-nav');
+            }
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set active state for the cover page nav button
+            document.querySelector('.nav-btn:nth-child(1)').classList.add('active-nav');
+        });
+    </script>
+</body>
+</html>
